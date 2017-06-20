@@ -13,7 +13,7 @@ const users = [{
   password: 'testpass123',
   tokens: [{
     access: 'auth',
-    token: jwt.sign({_id:userOneId, access:'auth'}, 'abc123').toString()
+    token: jwt.sign({_id:userOneId, access:'auth'}, process.env.JWT_SECRET).toString()
   }]
 },{
   _id: userTwoId,
@@ -23,12 +23,14 @@ const users = [{
 
 const todos = [{
   _id: new ObjectID(),
-  text: 'Test Todo One'
+  text: 'Test Todo One',
+  _creator: userOneId
 },{
   _id: new ObjectID(),
   text: 'Test Todo Two',
   completed: true,
-  completedAt: 123
+  completedAt: 123,
+  _creator: userTwoId
 }];
 
 const populateTodos = (done) => {
